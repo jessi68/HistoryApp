@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import MainHead from "./default/MainHead";
 import MainTemplate from "./default/MainTemplate";
 import styled  from 'styled-components';
-import lastNames from '../static/성씨_이름';
+import lastNamesToFirstName from '../static/성씨_이름';
 import firstNameToLastNames from '../static/이름_to_성씨';
+import SearchCandidates from './SearchCandidates';
+import searchByPrefix from '../SearchAlgorithms/SearchAlgorithms';
 
 const GlobalStyle=styled.div`
 body{
@@ -31,10 +33,11 @@ function SearchByLastName() {
     
   const [lastName, setLastName] = useState("");
   const [people, setPeople] = useState([]);
+  const [lastNames, setLastNames] = useState(Object.keys(lastNamesToFirstName));
 
     function searchAndSave(lastName) {
      
-        let people = lastNames[lastName];
+        let people = lastNamesToFirstName[lastName];
         setPeople(people);
     }
 
@@ -42,13 +45,18 @@ function SearchByLastName() {
        searchAndSave(lastName);
     }
 
-    function saveLastName(event) {
+    function showCandidate() {
+      
+    }
+
+    function saveLastNameAndShowCandidate(event) {
       let lastName = event.target.value;
       setLastName(lastName);
+      showCandidate(lastName);
     }
 
     let peopleView = [];
-
+    
     for (const [index, value] of people.entries()) {
       peopleView.push(<li key={index}>{value}</li>)
     }
@@ -64,10 +72,12 @@ function SearchByLastName() {
             예시) 전주 이씨
               </k>
         </SecondStyleBlock>     
-               <input placeholder="성씨를 입력해주세요 예시) 전주 이씨" onChange={(e)=> saveLastName(e)}></input>
+               <input placeholder="성씨를 입력해주세요 예시) 전주 이씨" onChange={(e)=> saveLastNameAndShowCandidate(e)}></input>
               <button style={{marginLeft:"30px"}} onClick={showResults}>결과 보기 </button>
         </MainTemplate>
-               
+               <div>
+                 <SearchCandidates data={lastNames} target={lastName} strategyAlgorithm={searchByPrefix}></SearchCandidates>
+               </div>
         <div>
           {peopleView}
         </div>
