@@ -1,8 +1,4 @@
-
-
 function startsWith(original, target) {
-    console.log(original);
-    console.log("Aaa");
     return original.startsWith(target);
 }
 
@@ -10,15 +6,15 @@ function endsWith(original, target) {
     return original.endsWith(target);
 }
 
-
-
 function searchBy(isSatisfied) {
     
-
     const algorithm = function(datas, target) {
         
         let new_data = [];
-        for (const [index, value] of datas.entries()) {
+        console.log(datas);
+        for (let index = 0; index < datas.length; index++) {
+            //console.log(value);
+            let value = datas[index];
             if(isSatisfied(value, target)) {
                 new_data.push(value);
             }

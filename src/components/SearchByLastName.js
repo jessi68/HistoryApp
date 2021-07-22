@@ -29,41 +29,38 @@ const SecondStyleBlock = styled.div`
   }
 `;
 
-function SearchByLastName() {
+function SearchByLastName(props) {
     
   const [lastName, setLastName] = useState("");
   const [people, setPeople] = useState([]);
   const [lastNames, setLastNames] = useState(Object.keys(lastNamesToFirstName));
+  // const history = useHistory();
+
+  // const handleOnClick = useCallback(() => history.push('/sample'), [history]);
 
     function searchAndSave(lastName) {
-     
         let people = lastNamesToFirstName[lastName];
         setPeople(people);
     }
 
     function showResults() {
        searchAndSave(lastName);
-    }
 
-    function showCandidate() {
-      
+       props.history.push({
+        pathname: "/SearchResults",
+        state: {data: lastNamesToFirstName[lastName]}
+      })
     }
 
     function saveLastNameAndShowCandidate(event) {
-      let lastName = event.target.value;
-      setLastName(lastName);
-      showCandidate(lastName);
+      let myLastName = event.target.value;
+      setLastName(myLastName);
     }
 
-    let peopleView = [];
-    
-    for (const [index, value] of people.entries()) {
-      peopleView.push(<li key={index}>{value}</li>)
-    }
-
+  
     return(
         <>
-     
+     <button onClick={ () => {props.history.goBack()} }> 뒤로 버튼 </button>
         <GlobalStyle />
         <MainTemplate>
         <MainHead />
@@ -74,13 +71,11 @@ function SearchByLastName() {
         </SecondStyleBlock>     
                <input placeholder="성씨를 입력해주세요 예시) 전주 이씨" onChange={(e)=> saveLastNameAndShowCandidate(e)}></input>
               <button style={{marginLeft:"30px"}} onClick={showResults}>결과 보기 </button>
-        </MainTemplate>
-               <div>
-                 <SearchCandidates data={lastNames} target={lastName} strategyAlgorithm={searchByPrefix}></SearchCandidates>
+              <div>
+                 <SearchCandidates data={lastNames} target={lastName} strategyAlgorithm={searchByPrefix} history={props.history}></SearchCandidates>
                </div>
-        <div>
-          {peopleView}
-        </div>
+        </MainTemplate>
+               
         </>
         
     );
