@@ -57,7 +57,6 @@ function SearchByLastName(props) {
       setLastName(myLastName);
     }
 
-  
     return(
         <>
      <button onClick={ () => {props.history.goBack()} }> 뒤로 버튼 </button>

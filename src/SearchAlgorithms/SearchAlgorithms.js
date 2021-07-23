@@ -25,7 +25,6 @@ function searchBy(isSatisfied) {
     return algorithm;
 }
 
-
 let searchByPrefix = searchBy(startsWith);
 let searchByPostfix = searchBy(endsWith);
 

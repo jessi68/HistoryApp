@@ -20,12 +20,8 @@ class SearchCandidates extends React.Component{
 
    render(){
     let candidateViews = [];
-    console.log(this.props);
     let filteredData = this.props.strategyAlgorithm(this.props.data, this.props.target);
     let index = 0;
-
-    console.log(filteredData);
-
     for(let key in filteredData)  {
         let value = filteredData[key];
         let candidate = "";
@@ -37,6 +33,7 @@ class SearchCandidates extends React.Component{
             pathname: "/SearchResults",
             state: {data: candidate}
           })}>{value}</li>);
+          index += 1;
     }
 
     // filteredData.forEach(function (value) {

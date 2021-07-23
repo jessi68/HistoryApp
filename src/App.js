@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter } from "react-router-dom";
 import { Route } from 'react-router-dom';
 import SearchByLastName from './components/SearchByLastName';
-import SearchResultsView from './components/SearchResultsView';
+import SearchResultsView from './components/ResultsView';
 
 function App() {
   return (
